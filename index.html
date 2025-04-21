@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Celestial Tarot</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Montserrat:wght@300;400;500&display=swap">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Celestial Tarot</h1>
+            <p class="subtitle">Unlock the wisdom of the cards</p>
+        </header>
+
+        <div class="reading-container">
+          <div class="question-input">
+              <label for="userQuestion">Your Question (optional):</label>
+              <textarea id="userQuestion" placeholder="Focus your question here... (e.g., 'What do I need to know about my career?')"></textarea>
+          </div>
+            <div class="card-display" id="cardDisplay">
+                <div class="instructions">
+                    <p>Focus your question, then click below to draw your cards</p>
+                    <div class="sparkle">✧</div>
+                </div>
+            </div>
+
+            <div class="controls">
+                <select id="spreadType">
+                    <option value="1">Single Card</option>
+                    <option value="3">Three-Card Spread</option>
+                    <option value="5">Celtic Cross</option>
+                </select>
+                <button id="drawButton" class="draw-btn">Draw Cards</button>
+                <button id="resetButton" class="reset-btn">Reset</button>
+            </div>
+        </div>
+
+        <div class="reading-result" id="readingResult"></div>
+    </div>
+
+    <div class="modal" id="cardModal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="modal-card" id="modalCard"></div>
+            <div class="modal-interpretation" id="modalInterpretation"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
