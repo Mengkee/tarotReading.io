@@ -6,7 +6,7 @@ const tarotDeck = [
     { name: "The Empress", image: "https://upload.wikimedia.org/wikipedia/commons/d/d2/RWS_Tarot_03_Empress.jpg", upright: "Femininity, beauty, nature, nurturing", reversed: "Creative block, dependence" },
     { name: "The Emperor", image: "https://upload.wikimedia.org/wikipedia/commons/c/c3/RWS_Tarot_04_Emperor.jpg", upright: "Authority, structure, control", reversed: "Tyranny, rigidity, domination" },
     { name: "The Hierophant", image: "https://upload.wikimedia.org/wikipedia/commons/8/8d/RWS_Tarot_05_Hierophant.jpg", upright: "Tradition, conformity, morality", reversed: "Rebellion, subversiveness" },
-    { name: "The Lovers", image: "https://upload.wikimedia.org/wikipedia/commons/d/d7/RWS_Tarot_06_Lovers.jpg", upright: "Partnerships, duality, union", reversed: "Loss of balance, one-sidedness" },
+    { name: "The Lovers", image: "https://upload.wikimedia.org/wikipedia/commons/7/7b/Papus_Atout_06-amoureux-lover.png", upright: "Partnerships, duality, union", reversed: "Loss of balance, one-sidedness" },
     { name: "The Chariot", image: "https://upload.wikimedia.org/wikipedia/commons/9/9b/RWS_Tarot_07_Chariot.jpg", upright: "Direction, control, willpower", reversed: "Lack of control, opposition" },
     { name: "Strength", image: "https://upload.wikimedia.org/wikipedia/commons/f/f5/RWS_Tarot_08_Strength.jpg", upright: "Inner strength, bravery, compassion", reversed: "Self-doubt, weakness" },
     { name: "The Hermit", image: "https://upload.wikimedia.org/wikipedia/commons/4/4d/RWS_Tarot_09_Hermit.jpg", upright: "Soul-searching, introspection, being alone", reversed: "Isolation, loneliness" },
@@ -30,24 +30,107 @@ const tarotDeck = [
     { name: "Ten of Cups", image: "https://upload.wikimedia.org/wikipedia/commons/1/15/RWS_Tarot_10_of_Cups.jpg", upright: "Harmony, happy family", reversed: "Disconnection, conflict" }
 ];
 
+
 // DOM elements
+const introScreen = document.getElementById('introScreen');
+const mainContent = document.getElementById('mainContent');
+const beginBtn = document.getElementById('beginBtn');
+const nameInput = document.getElementById('nameInput');
+const questionInput = document.getElementById('questionInput');
+const userNameInput = document.getElementById('userName');
+const submitName = document.getElementById('submitName');
+const greetingName = document.getElementById('greetingName');
+const userQuestion = document.getElementById('userQuestion');
+const submitQuestion = document.getElementById('submitQuestion');
 const cardDisplay = document.getElementById('cardDisplay');
 const drawButton = document.getElementById('drawButton');
 const resetButton = document.getElementById('resetButton');
 const spreadType = document.getElementById('spreadType');
 const readingResult = document.getElementById('readingResult');
+const readingControls = document.getElementById('readingControls');
 const cardModal = document.getElementById('cardModal');
 const modalCard = document.getElementById('modalCard');
 const modalInterpretation = document.getElementById('modalInterpretation');
 const closeModal = document.querySelector('.close');
 
-// Current reading state
+// App state
 let currentReading = [];
+let userName = '';
+let userQuestionText = '';
 
-// Event listeners
-drawButton.addEventListener('click', drawCards);
-resetButton.addEventListener('click', resetReading);
-closeModal.addEventListener('click', () => cardModal.style.display = 'none');
+// Initialize the app
+function initApp() {
+    // Start with intro screen
+    introScreen.classList.remove('hidden');
+    mainContent.classList.add('hidden');
+
+    // Set up event listeners
+    beginBtn.addEventListener('click', beginReading);
+    submitName.addEventListener('click', saveName);
+    submitQuestion.addEventListener('click', saveQuestion);
+    drawButton.addEventListener('click', drawCards);
+    resetButton.addEventListener('click', resetReading);
+    closeModal.addEventListener('click', () => cardModal.style.display = 'none');
+
+    // Allow pressing Enter in name input
+    userNameInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') saveName();
+    });
+
+    // Allow pressing Enter in question textarea
+    userQuestion.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            saveQuestion();
+        }
+    });
+}
+
+// Begin the reading process
+function beginReading() {
+    introScreen.classList.add('hidden');
+    mainContent.classList.remove('hidden');
+
+    // Show name input first
+    nameInput.classList.remove('hidden');
+    questionInput.classList.add('hidden');
+    readingControls.classList.add('hidden');
+}
+
+// Save the user's name
+function saveName() {
+    userName = userNameInput.value.trim();
+
+    if (!userName) {
+        alert("Please enter your name, dear seeker.");
+        return;
+    }
+
+    // Personalize the greeting
+    greetingName.textContent = userName;
+
+    // Move to question input
+    nameInput.classList.add('hidden');
+    questionInput.classList.remove('hidden');
+}
+
+// Save the user's question
+function saveQuestion() {
+    userQuestionText = userQuestion.value.trim();
+
+    if (!userQuestionText) {
+        alert("The cards require a question to focus their wisdom.");
+        return;
+    }
+
+    // Move to card selection
+    questionInput.classList.add('hidden');
+    readingControls.classList.remove('hidden');
+
+    // Update instructions
+    cardDisplay.querySelector('.instructions p').textContent =
+        `Focus on your question: "${userQuestionText.substring(0, 30)}${userQuestionText.length > 30 ? '...' : ''}"`;
+}
 
 // Draw cards function
 async function drawCards() {
@@ -130,13 +213,12 @@ function showCardModal(card) {
 
     modalInterpretation.innerHTML = `
         <h3>${card.name} ${card.reversed ? '(Reversed)' : ''}</h3>
-        <p><strong>Meaning:</strong> ${card.reversed ? card.reversed : card.upright}</p>
+        <p><strong>Lady M. says:</strong> ${card.reversed ? card.reversed : card.upright}</p>
     `;
 
     cardModal.style.display = 'block';
 }
 
-// Get AI interpretation
 async function getAIInterpretation(cards) {
     try {
 
@@ -150,10 +232,10 @@ async function getAIInterpretation(cards) {
         let prompt;
 
         if (userQuestion) {
-            prompt = `Give me a personalized tarot reading interpretation for this question:
-            "${userQuestion}". The reading is a ${spreadName} spread with these cards: ${cardList}.
+            prompt = `When answering the question, please address ${userName} in a casual way. Give me a personalized tarot reading interpretation for this question:
+            "${userQuestion}". The answer should be as tailered and specific as possible. The reading is a ${spreadName} spread with these cards: ${cardList}.
             Provide a specific interpretation about what this combination means in relation to the question,
-            about 2-3 paragraphs. Keep the tone mystical but approachable.`;
+             Keep the tone approachable. `;
         } else {
             prompt = `Give me a general tarot reading interpretation for a ${spreadName} spread
             with these cards: ${cardList}. Provide an interpretation of what this combination means,
@@ -182,14 +264,23 @@ async function getAIInterpretation(cards) {
         });
 
         const data = await response.json();
-        console.log(data)
+
+
+        let formattedInterpretation = data.choices[0].message.content;
+
+        // Option 1: Replace literal \n with <br> (if API returns \n)
+        formattedInterpretation = formattedInterpretation.replace(/\n/g, '<br>');
+
         // Display interpretation
         readingResult.innerHTML = `
-             <h2>Your ${spreadName} Reading</h2>
-             ${userQuestion ? `<p><strong>Your Question:</strong> ${userQuestion}</p>` : ''}
-             <p><strong>Cards drawn:</strong> ${cardList}</p>
-             <div class="interpretation">${data.choices[0].message.content}</div>
-         `;
+            <h2>Lady M.'s Reading for ${userName}</h2>
+            <p><strong>Your Question:</strong> ${userQuestionText}</p>
+            <p><strong>Cards drawn:</strong> ${cardList}</p>
+            <div class="interpretation">
+                <p><strong>🔮 Lady M. gazes into the cards and says...</strong></p>
+                <p>${formattedInterpretation}</p>
+            </div>
+        `;
 
          // Show with animation
          setTimeout(() => {
@@ -214,17 +305,27 @@ async function getAIInterpretation(cards) {
          readingResult.classList.add('show');
      }
  }
+
 // Reset reading
 function resetReading() {
+    // Reset to name input
+    nameInput.classList.remove('hidden');
+    questionInput.classList.add('hidden');
+    readingControls.classList.add('hidden');
+    readingResult.classList.remove('show');
+
+    // Clear inputs
+    userNameInput.value = '';
+    userQuestion.value = '';
+
+    // Reset card display
     cardDisplay.innerHTML = `
         <div class="instructions">
-            <p>Focus your question, then click below to draw your cards</p>
+            <p>The cards await your question...</p>
             <div class="sparkle">✧</div>
         </div>
     `;
 
-    document.getElementById('userQuestion').value = '';
-    readingResult.classList.remove('show');
     currentReading = [];
 }
 
@@ -234,3 +335,6 @@ window.addEventListener('click', (event) => {
         cardModal.style.display = 'none';
     }
 });
+
+// Initialize the app when DOM is loaded
+document.addEventListener('DOMContentLoaded', initApp);

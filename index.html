@@ -3,48 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Celestial Tarot</title>
+    <title>Lady M.'s Tarot Parlor</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Montserrat:wght@300;400;500&display=swap">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1>Celestial Tarot</h1>
-            <p class="subtitle">Unlock the wisdom of the cards</p>
-        </header>
-
-        <div class="reading-container">
-          <div class="question-input">
-              <label for="userQuestion">Your Question (optional):</label>
-              <textarea id="userQuestion" placeholder="Focus your question here... (e.g., 'What do I need to know about my career?')"></textarea>
-          </div>
-            <div class="card-display" id="cardDisplay">
-                <div class="instructions">
-                    <p>Focus your question, then click below to draw your cards</p>
-                    <div class="sparkle">✧</div>
-                </div>
+        <div id="introScreen" class="intro-screen">
+            <div class="crystal-ball">
+                <div class="inner-glow"></div>
             </div>
-
-            <div class="controls">
-                <select id="spreadType">
-                    <option value="1">Single Card</option>
-                    <option value="3">Three-Card Spread</option>
-                    <option value="5">Celtic Cross</option>
-                </select>
-                <button id="drawButton" class="draw-btn">Draw Cards</button>
-                <button id="resetButton" class="reset-btn">Reset</button>
+            <h1>Lady M.'s Tarot Parlor</h1>
+            <p class="tagline">Seer of Secrets, Mistress of Mysteries</p>
+            <div id="introDialog" class="dialog-box">
+                <div class="dialog-content">
+                    <p>Welcome, seeker. I am Lady M., diviner of fates and reader of fortunes.</p>
+                    <p>Shall we consult the cards to illuminate your path?</p>
+                </div>
+                <button id="beginBtn" class="mystic-btn">Enter the Parlor</button>
             </div>
         </div>
 
-        <div class="reading-result" id="readingResult"></div>
-    </div>
+        <div id="mainContent" class="hidden">
+            <header>
+                <h1>Lady M.'s Tarot Parlor</h1>
+                <p class="subtitle">Seer of Secrets, Mistress of Mysteries</p>
+            </header>
 
-    <div class="modal" id="cardModal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <div class="modal-card" id="modalCard"></div>
-            <div class="modal-interpretation" id="modalInterpretation"></div>
+            <div class="reading-container">
+                <div id="nameInput" class="dialog-step">
+                    <div class="dialog-box">
+                        <div class="dialog-content">
+                            <p>Before we begin, dear seeker, what shall I call you?</p>
+                        </div>
+                        <input type="text" id="userName" placeholder="Your name...">
+                        <button id="submitName" class="mystic-btn">Continue</button>
+                    </div>
+                </div>
+
+                <div id="questionInput" class="dialog-step hidden">
+                    <div class="dialog-box">
+                        <div class="dialog-content">
+                            <p><span id="greetingName"></span>, focus your mind and tell me...</p>
+                            <p>What question burns in your heart that the cards might answer?</p>
+                        </div>
+                        <textarea id="userQuestion" placeholder="Your question for the cards..."></textarea>
+                        <button id="submitQuestion" class="mystic-btn">Consult the Cards</button>
+                    </div>
+                </div>
+
+                <div class="card-display" id="cardDisplay">
+                    <div class="instructions">
+                        <p>The cards await your question...</p>
+                        <div class="sparkle">✧</div>
+                    </div>
+                </div>
+
+                <div class="controls hidden" id="readingControls">
+                    <select id="spreadType">
+                        <option value="1">Single Card (Quick Insight)</option>
+                        <option value="3">Three-Card Spread (Past, Present, Future)</option>
+                        <option value="5">Celtic Cross (Detailed Reading)</option>
+                    </select>
+                    <button id="drawButton" class="draw-btn">Draw Cards</button>
+                    <button id="resetButton" class="reset-btn">Begin Anew</button>
+                </div>
+            </div>
+
+            <div class="reading-result" id="readingResult"></div>
+        </div>
+
+        <div class="modal" id="cardModal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <div class="modal-card" id="modalCard"></div>
+                <div class="modal-interpretation" id="modalInterpretation"></div>
+            </div>
         </div>
     </div>
 

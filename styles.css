@@ -5,6 +5,9 @@
     --light-color: #f8f4f9;
     --dark-color: #1a1423;
     --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --mystic-purple: #5d3a7a;
+    --crystal-glow: rgba(240, 166, 202, 0.3);
+    --card-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
 * {
@@ -15,23 +18,141 @@
 
 body {
     font-family: 'Montserrat', sans-serif;
-    background-color: var(--light-color);
-    color: var(--dark-color);
+    background-color: var(--dark-color);
+    color: var(--light-color);
     line-height: 1.6;
+    min-height: 100vh;
     background-image: url('https://images.unsplash.com/photo-1531685250784-7569952593d2?q=80&w=1974&auto=format&fit=crop');
     background-size: cover;
     background-attachment: fixed;
     background-position: center;
-    min-height: 100vh;
 }
 
 .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 2rem;
-    background-color: rgba(248, 244, 249, 0.9);
     min-height: 100vh;
-    box-shadow: var(--shadow);
+    position: relative;
+    background-color: rgba(26, 20, 35, 0.85);
+    backdrop-filter: blur(3px);
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Introduction Screen */
+.intro-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 80vh;
+    padding: 2rem;
+    position: relative;
+}
+
+.crystal-ball {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, var(--light-color), var(--mystic-purple));
+    box-shadow: 0 0 30px var(--crystal-glow);
+    margin-bottom: 2rem;
+    position: relative;
+    animation: float 6s ease-in-out infinite;
+}
+
+.inner-glow {
+    position: absolute;
+    width: 60%;
+    height: 60%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,255,255,0.8), rgba(255,255,255,0));
+    top: 20%;
+    left: 20%;
+    filter: blur(5px);
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0px); }
+}
+
+.intro-screen h1 {
+    font-family: 'Cinzel Decorative', serif;
+    color: var(--accent-color);
+    font-size: 3.5rem;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 10px rgba(240, 166, 202, 0.5);
+}
+
+.tagline {
+    font-style: italic;
+    color: var(--secondary-color);
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+/* Dialog boxes */
+.dialog-box {
+    background-color: rgba(26, 20, 35, 0.9);
+    border: 1px solid var(--accent-color);
+    border-radius: 10px;
+    padding: 2rem;
+    max-width: 600px;
+    margin: 0 auto;
+    box-shadow: 0 0 20px rgba(240, 166, 202, 0.2);
+    backdrop-filter: blur(5px);
+}
+
+.dialog-content {
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+.dialog-content p {
+    margin-bottom: 1rem;
+}
+
+.dialog-step {
+    margin-bottom: 2rem;
+}
+
+/* Mystic buttons */
+.mystic-btn {
+    background: linear-gradient(to right, var(--mystic-purple), var(--accent-color));
+    color: white;
+    border: none;
+    padding: 0.75rem 2rem;
+    border-radius: 30px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 500;
+    box-shadow: 0 4px 15px rgba(93, 58, 122, 0.4);
+}
+
+.mystic-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(93, 58, 122, 0.6);
+}
+
+/* Main content styles */
+#mainContent {
+    animation: fadeIn 1s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 header {
@@ -43,8 +164,8 @@ header {
 
 h1 {
     font-family: 'Cinzel Decorative', serif;
-    color: var(--primary-color);
-    font-size: 3rem;
+    color: var(--accent-color);
+    font-size: 2.5rem;
     margin-bottom: 0.5rem;
 }
 
@@ -54,12 +175,40 @@ h1 {
     font-size: 1.2rem;
 }
 
+/* Form elements */
+input[type="text"], textarea {
+    width: 100%;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--secondary-color);
+    border-radius: 5px;
+    color: var(--light-color);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+input[type="text"]:focus, textarea:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    background-color: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 0 2px rgba(240, 166, 202, 0.3);
+}
+
+textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+/* Reading container */
 .reading-container {
-    background-color: white;
+    background-color: rgba(58, 46, 90, 0.3);
     border-radius: 10px;
     padding: 2rem;
     box-shadow: var(--shadow);
     margin-bottom: 2rem;
+    border: 1px solid rgba(240, 166, 202, 0.1);
 }
 
 .card-display {
@@ -71,6 +220,7 @@ h1 {
     gap: 1.5rem;
     margin-bottom: 2rem;
     position: relative;
+    padding: 1rem;
 }
 
 .instructions {
@@ -84,6 +234,7 @@ h1 {
     font-size: 2rem;
     margin-top: 1rem;
     animation: pulse 2s infinite;
+    color: var(--accent-color);
 }
 
 @keyframes pulse {
@@ -92,6 +243,35 @@ h1 {
     100% { opacity: 0.5; transform: scale(1); }
 }
 
+/* Tarot cards */
+.tarot-card {
+    width: 150px;
+    height: 260px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+    box-shadow: var(--card-shadow);
+    transition: all 0.5s ease;
+    position: relative;
+    cursor: pointer;
+    transform-style: preserve-3d;
+    border: 3px solid rgba(255, 255, 255, 0.1);
+}
+
+.tarot-card:hover {
+    transform: translateY(-10px) rotateY(5deg);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+.tarot-card.reversed {
+    transform: rotate(180deg);
+}
+
+.tarot-card.reversed:hover {
+    transform: translateY(-10px) rotate(180deg) rotateY(5deg);
+}
+
+/* Controls */
 .controls {
     display: flex;
     justify-content: center;
@@ -110,60 +290,41 @@ select, button {
 }
 
 select {
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.1);
     border: 1px solid var(--secondary-color);
-    color: var(--primary-color);
+    color: var(--light-color);
+    min-width: 200px;
+}
+
+select option {
+    background-color: var(--primary-color);
+    color: var(--light-color);
 }
 
 .draw-btn {
-    background-color: var(--primary-color);
+    background: linear-gradient(to right, var(--mystic-purple), var(--accent-color));
     color: white;
+    font-weight: 500;
 }
 
 .draw-btn:hover {
-    background-color: var(--secondary-color);
     transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(93, 58, 122, 0.5);
 }
 
 .reset-btn {
-    background-color: var(--light-color);
-    color: var(--primary-color);
-    border: 1px solid var(--primary-color);
+    background-color: transparent;
+    color: var(--accent-color);
+    border: 1px solid var(--accent-color);
 }
 
 .reset-btn:hover {
-    background-color: var(--accent-color);
-    color: white;
+    background-color: rgba(240, 166, 202, 0.1);
 }
 
-.tarot-card {
-    width: 150px;
-    height: 260px;
-    background-size: cover;
-    background-position: center;
-    border-radius: 10px;
-    box-shadow: var(--shadow);
-    transition: all 0.5s ease;
-    position: relative;
-    cursor: pointer;
-    transform-style: preserve-3d;
-}
-
-.tarot-card:hover {
-    transform: translateY(-10px) rotateY(5deg);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-}
-
-.tarot-card.reversed {
-    transform: rotate(180deg);
-}
-
-.tarot-card.reversed:hover {
-    transform: translateY(-10px) rotate(180deg) rotateY(5deg);
-}
-
+/* Reading result */
 .reading-result {
-    background-color: white;
+    background-color: rgba(58, 46, 90, 0.5);
     border-radius: 10px;
     padding: 2rem;
     box-shadow: var(--shadow);
@@ -171,11 +332,21 @@ select {
     opacity: 0;
     transform: translateY(20px);
     transition: all 0.5s ease;
+    border: 1px solid rgba(240, 166, 202, 0.1);
 }
 
 .reading-result.show {
     opacity: 1;
     transform: translateY(0);
+}
+
+.interpretation {
+    margin-top: 1.5rem;
+    line-height: 1.8;
+}
+
+.interpretation p {
+    margin-bottom: 1rem;
 }
 
 /* Modal styles */
@@ -189,17 +360,19 @@ select {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.7);
     backdrop-filter: blur(5px);
+    animation: fadeIn 0.3s ease-out;
 }
 
 .modal-content {
-    background-color: white;
+    background-color: var(--primary-color);
     margin: 5% auto;
     padding: 2rem;
     border-radius: 10px;
     width: 80%;
     max-width: 800px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.5);
     position: relative;
+    border: 1px solid var(--accent-color);
     animation: modalFadeIn 0.3s ease;
 }
 
@@ -210,11 +383,17 @@ select {
 
 .close {
     position: absolute;
-    right: 1rem;
-    top: 1rem;
+    right: 1.5rem;
+    top: 1.5rem;
     font-size: 2rem;
-    color: var(--primary-color);
+    color: var(--accent-color);
     cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.close:hover {
+    transform: rotate(90deg);
+    color: var(--light-color);
 }
 
 .modal-card {
@@ -223,13 +402,37 @@ select {
     background-size: cover;
     background-position: center;
     border-radius: 10px;
-    box-shadow: var(--shadow);
-    margin: 0 auto 1rem;
+    box-shadow: var(--card-shadow);
+    margin: 0 auto 1.5rem;
+    border: 3px solid rgba(255, 255, 255, 0.2);
 }
 
 .modal-interpretation {
     padding: 1rem;
     text-align: center;
+    line-height: 1.8;
+}
+
+.modal-interpretation h3 {
+    color: var(--accent-color);
+    margin-bottom: 1rem;
+    font-family: 'Cinzel Decorative', serif;
+}
+
+/* Loading animation */
+.loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: var(--accent-color);
+    animation: spin 1s ease-in-out infinite;
+    margin: 0 auto;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
 }
 
 /* Responsive design */
@@ -238,12 +441,25 @@ select {
         padding: 1rem;
     }
 
-    h1 {
-        font-size: 2rem;
+    .intro-screen h1 {
+        font-size: 2.5rem;
     }
 
-    .card-display {
-        min-height: 200px;
+    .tagline {
+        font-size: 1.2rem;
+    }
+
+    .crystal-ball {
+        width: 150px;
+        height: 150px;
+    }
+
+    .dialog-box {
+        padding: 1.5rem;
+    }
+
+    h1 {
+        font-size: 2rem;
     }
 
     .tarot-card {
@@ -262,52 +478,26 @@ select {
     .modal-content {
         width: 95%;
         margin: 10% auto;
+        padding: 1.5rem;
+    }
+
+    .modal-card {
+        width: 150px;
+        height: 260px;
     }
 }
 
-/* Loading animation */
-.loading {
-    display: inline-block;
-    width: 30px;
-    height: 30px;
-    border: 3px solid rgba(255, 255, 255, 0.3);
-    border-radius: 50%;
-    border-top-color: var(--primary-color);
-    animation: spin 1s ease-in-out infinite;
-    margin: 0 auto;
-}
+@media (max-width: 480px) {
+    .intro-screen h1 {
+        font-size: 2rem;
+    }
 
+    .tarot-card {
+        width: 100px;
+        height: 175px;
+    }
 
-.question-input {
-    margin-bottom: 2rem;
-}
-
-.question-input label {
-    display: block;
-    margin-bottom: 0.5rem;
-    color: var(--primary-color);
-    font-weight: 500;
-}
-
-.question-input textarea {
-    width: 100%;
-    padding: 1rem;
-    border: 1px solid var(--secondary-color);
-    border-radius: 5px;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1rem;
-    min-height: 80px;
-    resize: vertical;
-    transition: all 0.3s ease;
-}
-
-.question-input textarea:focus {
-    outline: none;
-    border-color: var(--accent-color);
-    box-shadow: 0 0 0 2px rgba(240, 166, 202, 0.3);
-}
-
-
-@keyframes spin {
-    to { transform: rotate(360deg); }
+    .modal-content {
+        padding: 1rem;
+    }
 }
