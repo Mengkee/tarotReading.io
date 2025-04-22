@@ -22,10 +22,6 @@ body {
     color: var(--light-color);
     line-height: 1.6;
     min-height: 100vh;
-    background-image: url('https://images.unsplash.com/photo-1531685250784-7569952593d2?q=80&w=1974&auto=format&fit=crop');
-    background-size: cover;
-    background-attachment: fixed;
-    background-position: center;
 }
 
 .container {

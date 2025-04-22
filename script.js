@@ -23,11 +23,11 @@ const tarotDeck = [
     { name: "Judgement", image: "https://upload.wikimedia.org/wikipedia/commons/d/dd/RWS_Tarot_20_Judgement.jpg", upright: "Reflection, reckoning, awakening", reversed: "Lack of self awareness, doubt" },
     { name: "The World", image: "https://upload.wikimedia.org/wikipedia/commons/f/ff/RWS_Tarot_21_World.jpg", upright: "Fulfillment, harmony, completion", reversed: "Incompletion, lack of closure" },
     // Minor Arcana - Sample cards
-    { name: "Ace of Wands", image: "https://upload.wikimedia.org/wikipedia/commons/d/d3/RWS_Tarot_Ace_of_Wands.jpg", upright: "Inspiration, new opportunities", reversed: "Delays, lack of motivation" },
-    { name: "Three of Cups", image: "https://upload.wikimedia.org/wikipedia/commons/5/55/RWS_Tarot_03_of_Cups.jpg", upright: "Celebration, friendship", reversed: "Isolation, loneliness" },
-    { name: "Queen of Pentacles", image: "https://upload.wikimedia.org/wikipedia/commons/6/6a/RWS_Tarot_Queen_of_Pentacles.jpg", upright: "Practicality, nurturing", reversed: "Financial insecurity" },
-    { name: "Knight of Swords", image: "https://upload.wikimedia.org/wikipedia/commons/4/4e/RWS_Tarot_Knight_of_Swords.jpg", upright: "Action, ambition", reversed: "Aggression, impulsiveness" },
-    { name: "Ten of Cups", image: "https://upload.wikimedia.org/wikipedia/commons/1/15/RWS_Tarot_10_of_Cups.jpg", upright: "Harmony, happy family", reversed: "Disconnection, conflict" }
+    { name: "Ace of Wands", image: "https://upload.wikimedia.org/wikipedia/commons/4/44/Ace_of_Wands%2C_Waite-Smith_Tarot_Deck%2C_Yale_University.jpg", upright: "Inspiration, new opportunities", reversed: "Delays, lack of motivation" },
+    { name: "Three of Cups", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Three_of_Cups%2C_Waite-Smith_Tarot_Deck%2C_Yale_University.jpg/640px-Three_of_Cups%2C_Waite-Smith_Tarot_Deck%2C_Yale_University.jpg", upright: "Celebration, friendship", reversed: "Isolation, loneliness" },
+    { name: "Queen of Pentacles", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Pents13.jpg/640px-Pents13.jpg", upright: "Practicality, nurturing", reversed: "Financial insecurity" },
+    { name: "Knight of Swords", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Swords12.jpg/640px-Swords12.jpg", upright: "Action, ambition", reversed: "Aggression, impulsiveness" },
+    { name: "Ten of Cups", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Cups10.jpg/640px-Cups10.jpg", upright: "Harmony, happy family", reversed: "Disconnection, conflict" }
 ];
 
 
